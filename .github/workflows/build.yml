@@ -40,8 +40,8 @@ jobs:
               -DANDROID_PLATFORM=android-21 ..
         make
 
-    - name: Upload binary artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: xz-android-binary
-        path: build/src/xz
+   # - name: Upload binary artifact
+   #   uses: actions/upload-artifact@v3
+   #   with:
+   #    name: xz-android-binary
+   #     path: build/src/xz
