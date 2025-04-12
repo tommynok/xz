@@ -21,7 +21,6 @@ jobs:
         mkdir -p $HOME/android-ndk
         curl -sSL https://dl.google.com/android/repository/android-ndk-r25c-linux.zip -o android-ndk.zip
         unzip android-ndk.zip -d $HOME/android-ndk
-        export ANDROID_NDK_HOME=$HOME/android-ndk/android-ndk-r25c
         echo "ANDROID_NDK_HOME=$HOME/android-ndk/android-ndk-r25c" >> $GITHUB_ENV
 
     - name: Install dependencies
@@ -40,8 +39,12 @@ jobs:
               -DANDROID_PLATFORM=android-21 ..
         make
 
-   # - name: Upload binary artifact
-   #   uses: actions/upload-artifact@v3
-   #   with:
-   #    name: xz-android-binary
-   #     path: build/src/xz
+    - name: List files for debugging
+      run: |
+        ls -R build
+
+    - name: Upload binary artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: xz-android-binary
+        path: build/src/xz
