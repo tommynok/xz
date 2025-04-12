@@ -39,12 +39,18 @@ jobs:
               -DANDROID_PLATFORM=android-21 ..
         make
 
-    - name: List files for debugging
+    - name: Debug artifact path
       run: |
-        ls -R build
+        if [ -d build/src/xz ]; then
+          echo "Directory exists"
+          ls -la build/src/xz
+        else
+          echo "Directory does not exist. Debugging build directory:"
+          ls -la build
+        fi
 
     - name: Upload binary artifact
       uses: actions/upload-artifact@v3
       with:
         name: xz-android-binary
-        path: build/src/xz
+        path: build/
