@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build:
+  build-android:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,7 @@ jobs:
         sudo apt update
         sudo apt install -y build-essential cmake
 
-    - name: Configure and build XZ Utils
+    - name: Configure and build XZ Utils for Android
       run: |
         mkdir build
         cd build
