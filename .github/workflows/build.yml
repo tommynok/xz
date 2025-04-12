@@ -16,10 +16,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Android NDK
-      uses: android/ndk@v1
-      with:
-        ndk-version: r25c
+    - name: Download Android NDK
+      run: |
+        mkdir -p $HOME/android-ndk
+        curl -sSL https://dl.google.com/android/repository/android-ndk-r25c-linux.zip -o android-ndk.zip
+        unzip android-ndk.zip -d $HOME/android-ndk
+        export ANDROID_NDK_HOME=$HOME/android-ndk/android-ndk-r25c
+        echo "ANDROID_NDK_HOME=$HOME/android-ndk/android-ndk-r25c" >> $GITHUB_ENV
 
     - name: Install dependencies
       run: |
@@ -27,6 +30,8 @@ jobs:
         sudo apt install -y build-essential cmake
 
     - name: Configure and build XZ Utils for Android
+      env:
+        ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
       run: |
         mkdir build
         cd build
